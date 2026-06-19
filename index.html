@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Premium Admin Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+:root{
+--bg:#0b1220;
+--card:rgba(255,255,255,.08);
+--text:#eef2ff;
+--primary:#4f9cff;
+}
+
+body.light{
+--bg:#f4f7fb;
+--card:#ffffff;
+--text:#111827;
+--primary:#2563eb;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#0b1220,#111827);
+color:var(--text);
+display:flex;
+min-height:100vh;
+}
+
+body.light{
+background:#f4f7fb;
+}
+
+.sidebar{
+width:260px;
+padding:20px;
+background:rgba(255,255,255,.06);
+backdrop-filter:blur(12px);
+}
+
+.logo{
+font-size:28px;
+font-weight:700;
+color:var(--primary);
+margin-bottom:20px;
+}
+
+.sidebar a{
+display:block;
+padding:12px;
+margin:8px 0;
+border-radius:10px;
+color:var(--text);
+text-decoration:none;
+transition:.3s;
+}
+
+.sidebar a:hover{
+background:var(--primary);
+color:white;
+}
+
+.main{
+flex:1;
+padding:20px;
+}
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.btn{
+background:var(--primary);
+border:none;
+padding:10px 15px;
+border-radius:10px;
+color:white;
+cursor:pointer;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:16px;
+}
+
+.card{
+background:var(--card);
+backdrop-filter:blur(10px);
+padding:20px;
+border-radius:18px;
+box-shadow:0 10px 20px rgba(0,0,0,.2);
+}
+
+.metric{
+font-size:30px;
+font-weight:bold;
+margin-top:10px;
+}
+
+.charts{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:16px;
+margin-top:16px;
+}
+
+.table{
+width:100%;
+border-collapse:collapse;
+}
+
+.table th,
+.table td{
+padding:10px;
+text-align:left;
+}
+
+.table tr:not(:last-child){
+border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.timeline li{
+margin:10px 0;
+}
+
+.calendar{
+display:grid;
+grid-template-columns:repeat(7,1fr);
+gap:5px;
+}
+
+.day{
+padding:8px;
+background:rgba(255,255,255,.08);
+border-radius:8px;
+text-align:center;
+}
+
+canvas{
+max-height:300px;
+}
+
+@media(max-width:900px){
+.charts{
+grid-template-columns:1fr;
+}
+.sidebar{
+width:200px;
+}
+}
+
+@media(max-width:700px){
+body{
+flex-direction:column;
+}
+.sidebar{
+width:100%;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+<div class="logo">AdminPro</div>
+
+<a href="#">🏠 Dashboard</a>
+<a href="#">👥 Users</a>
+<a href="#">📦 Products</a>
+<a href="#">🛒 Orders</a>
+<a href="#">📈 Analytics</a>
+<a href="#">⚙ Settings</a>
+</div>
+
+<div class="main">
+
+<div class="top">
+<h1>Premium Dashboard</h1>
+<button class="btn" onclick="toggleTheme()">Toggle Theme</button>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<h3>Users</h3>
+<div class="metric" id="users">1,250</div>
+</div>
+
+<div class="card">
+<h3>Orders</h3>
+<div class="metric" id="orders">320</div>
+</div>
+
+<div class="card">
+<h3>Revenue</h3>
+<div class="metric">$12,400</div>
+</div>
+
+<div class="card">
+<h3>Growth</h3>
+<div class="metric">24%</div>
+</div>
+
+</div>
+
+<div class="charts">
+
+<div class="card">
+<h3>Revenue Analytics</h3>
+<canvas id="salesChart"></canvas>
+</div>
+
+<div class="card">
+<h3>User Devices</h3>
+<canvas id="deviceChart"></canvas>
+</div>
+
+</div>
+
+<div class="charts">
+
+<div class="card">
+<h3>Recent Orders</h3>
+
+<table class="table">
+<tr>
+<th>ID</th>
+<th>Customer</th>
+<th>Status</th>
+</tr>
+
+<tr>
+<td>#1001</td>
+<td>John</td>
+<td>Completed</td>
+</tr>
+
+<tr>
+<td>#1002</td>
+<td>Sarah</td>
+<td>Pending</td>
+</tr>
+
+<tr>
+<td>#1003</td>
+<td>Ahmed</td>
+<td>Shipped</td>
+</tr>
+</table>
+</div>
+
+<div class="card">
+<h3>Activity Timeline</h3>
+<ul class="timeline">
+<li>New user registered</li>
+<li>Order #1002 placed</li>
+<li>Revenue increased 12%</li>
+<li>Inventory updated</li>
+</ul>
+</div>
+
+</div>
+
+<div class="charts">
+
+<div class="card">
+<h3>AI Insights</h3>
+<p>
+Sales increased 12% this week.
+Mobile users contribute 30% of total traffic.
+June generated the highest revenue.
+</p>
+</div>
+
+<div class="card">
+<h3>Mini Calendar</h3>
+
+<div class="calendar">
+<div class="day">M</div>
+<div class="day">T</div>
+<div class="day">W</div>
+<div class="day">T</div>
+<div class="day">F</div>
+<div class="day">S</div>
+<div class="day">S</div>
+
+<div class="day">1</div>
+<div class="day">2</div>
+<div class="day">3</div>
+<div class="day">4</div>
+<div class="day">5</div>
+<div class="day">6</div>
+<div class="day">7</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function toggleTheme(){
+document.body.classList.toggle("light");
+
+localStorage.setItem(
+"theme",
+document.body.classList.contains("light")
+? "light"
+: "dark"
+);
+}
+
+if(localStorage.getItem("theme")==="light"){
+document.body.classList.add("light");
+}
+
+new Chart(document.getElementById("salesChart"),{
+type:"line",
+data:{
+labels:["Jan","Feb","Mar","Apr","May","Jun"],
+datasets:[{
+label:"Revenue",
+data:[1200,1900,3000,2500,4200,5200],
+borderColor:"#4f9cff",
+fill:false
+}]
+}
+});
+
+new Chart(document.getElementById("deviceChart"),{
+type:"doughnut",
+data:{
+labels:["Desktop","Mobile","Tablet"],
+datasets:[{
+data:[55,30,15],
+backgroundColor:[
+"#4f9cff",
+"#22c55e",
+"#f59e0b"
+]
+}]
+}
+});
+
+let users=1250;
+let orders=320;
+
+setInterval(()=>{
+users+=Math.floor(Math.random()*5);
+orders+=Math.floor(Math.random()*3);
+
+document.getElementById("users").innerText=
+users.toLocaleString();
+
+document.getElementById("orders").innerText=
+orders.toLocaleString();
+
+},3000);
+
+</script>
+
+</body>
+</html>
